@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public PlayerInputControl playerInputControl;
     public Vector2 playerDirction;
     public Rigidbody2D rb;
+    public PhyscisCheck physcisCheck;
     [Header("基本参数")]
     public float speed;
     public float jumpForce;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInputControl = new PlayerInputControl();
         rb = GetComponent<Rigidbody2D>();
+        physcisCheck = GetComponent<PhyscisCheck>();
     }
 
     private void Update()
@@ -25,14 +27,35 @@ public class PlayerController : MonoBehaviour
         playerInputControl.Player.Jump.started += Jump;
     }
 
-    private void Jump(InputAction.CallbackContext obj)
-    {
-        rb.AddForce(transform.up*jumpForce,ForceMode2D.Impulse);
-    }
+    
 
     private void FixedUpdate()
     {
         Move();
+    }
+
+    private void OnEnable()
+    {
+        playerInputControl.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerInputControl.Disable();
+    }
+    /// <summary>
+    /// 方法
+    /// </summary>
+    /// <param name="obj"></param>
+    
+    //跳跃
+    private void Jump(InputAction.CallbackContext obj)
+    {
+        if (physcisCheck.isGround)
+        {
+            rb.AddForce(transform.up*jumpForce,ForceMode2D.Impulse);
+        }
+        
     }
     //移动
     private void Move()
@@ -51,16 +74,6 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.localScale = new Vector3(faceDir,1,1);
-    }
-
-    private void OnEnable()
-    {
-        playerInputControl.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerInputControl.Disable();
     }
     
 }
