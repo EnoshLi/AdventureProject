@@ -9,9 +9,10 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerInputControl playerInputControl;
     public Vector2 playerDirction;
-    public float speed;
     public Rigidbody2D rb;
-
+    [Header("基本参数")]
+    public float speed;
+    public float jumpForce;
     private void Awake()
     {
         playerInputControl = new PlayerInputControl();
@@ -21,6 +22,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         playerDirction = playerInputControl.Player.Move.ReadValue<Vector2>();
+        playerInputControl.Player.Jump.started += Jump;
+    }
+
+    private void Jump(InputAction.CallbackContext obj)
+    {
+        rb.AddForce(transform.up*jumpForce,ForceMode2D.Impulse);
     }
 
     private void FixedUpdate()
