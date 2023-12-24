@@ -16,7 +16,7 @@ public class PhyscisCheck : MonoBehaviour
     private void Update()
     {
         Check();
-    }
+    }                                                
 
     public void Check()
     {

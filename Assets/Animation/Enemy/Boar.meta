@@ -1,11 +1,5 @@
 fileFormatVersion: 2
-guid: 1534b6ce5eff16c4b98843f65c85ed3d
-labels:
-- Audio
-- Effect
-- Ground
-- Vegetation
-- Water
+guid: bb990e83f6d82fd4a98ea349bf03284a
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

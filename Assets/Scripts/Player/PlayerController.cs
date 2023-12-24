@@ -16,7 +16,10 @@ public class PlayerController : MonoBehaviour
     [Header("基本参数")]
     public float speed;
     public float jumpForce;
+    public float hurtForce;
     public bool isCrouch;
+    public bool isHurt;
+    public bool isDead;
     private Vector2 offset;
     private Vector2 size;
     
@@ -40,7 +43,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (!isHurt)
+        {
+            Move();
+        }
+        
     }
 
     private void OnEnable()
@@ -101,5 +108,25 @@ public class PlayerController : MonoBehaviour
             capsule2D.size = size;
         }
     }
-    
+    //人物受到伤害
+    public void GetHurt(Transform attacker)
+    {
+        isHurt = true;
+        rb.velocity = Vector2.zero;
+        Vector2 dir = new Vector2((transform.position.x - attacker.transform.position.x), 0).normalized;
+        rb.AddForce(hurtForce*dir,ForceMode2D.Impulse);
+    }
+    //人物死亡
+    public void OnDie()
+    {
+        isDead = true;
+        playerInputControl.Player.Disable();
+    }
+    public void CheckState()
+    {
+        if (isDead)
+            gameObject.layer = LayerMask.NameToLayer("Enemy");
+        else
+            gameObject.layer = LayerMask.NameToLayer("Player");
+    }
 }
