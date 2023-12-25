@@ -7,21 +7,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("基本组件")]
     public PlayerInputControl playerInputControl;
     public Vector2 playerDirction;
     public Rigidbody2D rb;
     public PhyscisCheck physcisCheck;
     private CapsuleCollider2D capsule2D;
-    
+    private PlayerAnimation playerAnimation;
     [Header("基本参数")]
     public float speed;
     public float jumpForce;
     public float hurtForce;
+    private Vector2 offset;
+    private Vector2 size;
+    [Header("基本状态")]
     public bool isCrouch;
     public bool isHurt;
     public bool isDead;
-    private Vector2 offset;
-    private Vector2 size;
+    public bool isAttack;
     
     private void Awake()
     {
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         physcisCheck = GetComponent<PhyscisCheck>();
         capsule2D = GetComponent<CapsuleCollider2D>();
+        playerAnimation = GetComponent<PlayerAnimation>();
         offset=capsule2D.offset;
         size = capsule2D.size;
     }
@@ -36,11 +40,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         playerDirction = playerInputControl.Player.Move.ReadValue<Vector2>();
+        //人物跳跃功能
         playerInputControl.Player.Jump.started += Jump;
+        //人物攻击功能
+        playerInputControl.Player.Attack.started += Attack;
     }
-
     
-
     private void FixedUpdate()
     {
         if (!isHurt)
@@ -64,16 +69,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     /// <param name="obj"></param>
     
-    //跳跃
-    private void Jump(InputAction.CallbackContext obj)
-    {
-        if (physcisCheck.isGround)
-        {
-            rb.AddForce(transform.up*jumpForce,ForceMode2D.Impulse);
-        }
-        
-    }
-    //移动
+    #region 移动
     private void Move()
     {
         //人物移动
@@ -108,7 +104,22 @@ public class PlayerController : MonoBehaviour
             capsule2D.size = size;
         }
     }
-    //人物受到伤害
+    #endregion
+   
+    #region 跳跃
+    private void Jump(InputAction.CallbackContext obj)
+    {
+        if (physcisCheck.isGround)
+        {
+            rb.AddForce(transform.up*jumpForce,ForceMode2D.Impulse);
+        }
+        
+    }
+
+    #endregion
+    
+    #region UnityEvent
+    //受到伤害
     public void GetHurt(Transform attacker)
     {
         isHurt = true;
@@ -116,12 +127,13 @@ public class PlayerController : MonoBehaviour
         Vector2 dir = new Vector2((transform.position.x - attacker.transform.position.x), 0).normalized;
         rb.AddForce(hurtForce*dir,ForceMode2D.Impulse);
     }
-    //人物死亡
+    //角色死亡
     public void OnDie()
     {
         isDead = true;
         playerInputControl.Player.Disable();
     }
+    //防止死亡后敌人仍然再攻击
     public void CheckState()
     {
         if (isDead)
@@ -129,4 +141,18 @@ public class PlayerController : MonoBehaviour
         else
             gameObject.layer = LayerMask.NameToLayer("Player");
     }
+
+    #endregion
+
+    #region 攻击功能
+
+    private void Attack(InputAction.CallbackContext obj)
+    {
+        playerAnimation.AttackTriggle();
+        isAttack = true;
+        
+    }
+
+    #endregion
+    
 }
