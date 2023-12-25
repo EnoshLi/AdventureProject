@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
     public bool isHurt;
     public bool isDead;
     public bool isAttack;
+    [Header("物理材质")] 
+    public PhysicsMaterial2D normal;
+
+    public PhysicsMaterial2D wall;
     
     private void Awake()
     {
@@ -136,10 +140,8 @@ public class PlayerController : MonoBehaviour
     //防止死亡后敌人仍然再攻击
     public void CheckState()
     {
-        if (isDead)
-            gameObject.layer = LayerMask.NameToLayer("Enemy");
-        else
-            gameObject.layer = LayerMask.NameToLayer("Player");
+        capsule2D.sharedMaterial= physcisCheck.isGround ? normal : wall;
+        gameObject.layer=isDead?LayerMask.NameToLayer("Enemy"):LayerMask.NameToLayer("Player");
     }
 
     #endregion
