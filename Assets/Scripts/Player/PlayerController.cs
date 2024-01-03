@@ -48,6 +48,9 @@ public class PlayerController : MonoBehaviour
         playerInputControl.Player.Jump.started += Jump;
         //人物攻击功能
         playerInputControl.Player.Attack.started += Attack;
+        //人物某些状态改变
+        CheckState();
+        
     }
     
     private void FixedUpdate()
@@ -140,8 +143,10 @@ public class PlayerController : MonoBehaviour
     //防止死亡后敌人仍然再攻击
     public void CheckState()
     {
+        gameObject.layer = isDead ? LayerMask.NameToLayer("Enemy") : LayerMask.NameToLayer("Player");
+        //改变人物摩擦因素
         capsule2D.sharedMaterial= physcisCheck.isGround ? normal : wall;
-        gameObject.layer=isDead?LayerMask.NameToLayer("Enemy"):LayerMask.NameToLayer("Player");
+        
     }
 
     #endregion

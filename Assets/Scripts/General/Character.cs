@@ -9,13 +9,14 @@ public class Character : MonoBehaviour
     [Header("基本参数")]
     public int maxHealth;
     public int currentHealth;
-    public float invulnerableDuration;
-    public float invulnerableCount;
-    
     [Header("人物受伤状态")] 
+    public float invulnerableDuration;
+
+    public float invulnerableCount;
+
     public bool invulnerable;
+
     public bool isDead;
-    
     [Header("事件")] 
     public UnityEvent<Transform> OnTakeDamage;
 
