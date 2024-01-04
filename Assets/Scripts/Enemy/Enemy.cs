@@ -21,6 +21,13 @@ public class Enemy : MonoBehaviour
     public float ChaseSpeed;
     //面朝方向
     public Vector3 faceDir;
+    //攻击者
+    public Transform attacker;
+    public float hurtForce;
+    [Header("基本状态")] 
+    public bool isHurt;
+
+    public bool isDead;
     [Header("计时器")]
     public bool wait;
     public float waitTime;
@@ -47,7 +54,11 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (!isHurt && !isDead)
+        {
+            Move();
+        }
+        
     }
 
     #region 移动
@@ -72,9 +83,54 @@ public class Enemy : MonoBehaviour
                 transform.localScale = new Vector3(faceDir.x, 1, 1);
             }
         }
-
-        
     }
     #endregion
-    
+
+    #region 受到伤害
+
+    public void OnTakeDamge(Transform attackTransform)
+    {
+        attacker = attackTransform;
+        if (attackTransform.position.x- transform.position.x>0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+        if (attackTransform.position.x-transform.position.x<0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+
+        isHurt = true;
+        animator.SetTrigger("Hurt");
+        Vector2 dir = new Vector2(transform.position.x-attacker.position.x,0);
+        StartCoroutine(OnHurt(dir));
+    }
+    //协程
+    IEnumerator OnHurt(Vector2 dir)
+    {
+        rigidbody2D.AddForce(dir*hurtForce,ForceMode2D.Impulse);
+        yield return new WaitForSeconds(0.5f);
+        isHurt = false;
+    }
+
+    #endregion
+
+    #region 死亡
+
+    public void OnDie()
+    {
+        gameObject.layer = 2;
+        animator.SetBool("Dead",true);
+        isDead = true;
+    }
+
+    public void AfterAnimation()
+    {
+        Destroy( gameObject);
+    }
+
+
+
+    #endregion
 }
