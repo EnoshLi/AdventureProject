@@ -2,28 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoarPatrolState : BaseState
+public class BoarChaseState : BaseState
 {
     public override void OnEnter(Enemy enemy)
     {
         currentEnemy = enemy;
-        currentEnemy.currentSpeed = currentEnemy.normalSpeed;
+        currentEnemy.currentSpeed = currentEnemy.ChaseSpeed;
+        currentEnemy.animator.SetBool("Run",true);
     }
 
     public override void LogicUpdate()
     {
-        if (currentEnemy.FoundPalyer())
+        if (currentEnemy.lostCount<=0)
         {
-            currentEnemy.SwaitchState(NPCState.Chase);
+            currentEnemy.SwaitchState(NPCState.Patrol);
         }
         if (!currentEnemy.physcisCheck.isGround || (currentEnemy.physcisCheck.touchLeftWall && currentEnemy.faceDir.x < 0 )|| (currentEnemy.physcisCheck.touchRightWall && currentEnemy.faceDir.x > 0))
         {
-            currentEnemy.wait = true;
-            currentEnemy.animator.SetBool("Walk" ,false);
-        }
-        else
-        {
-            currentEnemy.animator.SetBool("Walk" ,true);
+            currentEnemy.transform.localScale = new Vector3(currentEnemy.faceDir.x, 1, 1);
         }
     }
 
@@ -34,6 +30,7 @@ public class BoarPatrolState : BaseState
 
     public override void OnExit()
     {
-        currentEnemy.animator.SetBool("Walk",false);
+        currentEnemy.animator.SetBool("Run",false);
+        
     }
 }

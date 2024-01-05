@@ -34,7 +34,7 @@ public class PhyscisCheck : MonoBehaviour
     {
         //bottomOffset.x = bottomOffset.x * transform.localScale.x;
         //检测地面
-        isGround = Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(bottomOffset.x , bottomOffset.y), radius,layerMask);
+        isGround = Physics2D.OverlapCircle((Vector2)transform.position +new Vector2(bottomOffset.x * transform.localScale.x, bottomOffset.y), radius,layerMask);
         //墙壁检测
         touchRightWall=Physics2D.OverlapCircle((Vector2)transform.position+rightOffset,radius,layerMask);
         touchLeftWall=Physics2D.OverlapCircle((Vector2)transform.position+leftOffset,radius,layerMask);
@@ -42,7 +42,7 @@ public class PhyscisCheck : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere((Vector2)transform.position+bottomOffset,radius);
+        Gizmos.DrawWireSphere((Vector2)transform.position + new Vector2(bottomOffset.x * transform.localScale.x, bottomOffset.y),radius);
         Gizmos.DrawWireSphere((Vector2)transform.position+rightOffset,radius);
         Gizmos.DrawWireSphere((Vector2)transform.position+leftOffset,radius);
     }

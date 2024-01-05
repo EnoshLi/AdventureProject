@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoarPatrolState : BaseState
+public class SnailPatrolState : BaseState
 {
     public override void OnEnter(Enemy enemy)
     {
@@ -14,7 +14,7 @@ public class BoarPatrolState : BaseState
     {
         if (currentEnemy.FoundPalyer())
         {
-            currentEnemy.SwaitchState(NPCState.Chase);
+            currentEnemy.SwaitchState(NPCState.Skill);
         }
         if (!currentEnemy.physcisCheck.isGround || (currentEnemy.physcisCheck.touchLeftWall && currentEnemy.faceDir.x < 0 )|| (currentEnemy.physcisCheck.touchRightWall && currentEnemy.faceDir.x > 0))
         {
@@ -34,6 +34,6 @@ public class BoarPatrolState : BaseState
 
     public override void OnExit()
     {
-        currentEnemy.animator.SetBool("Walk",false);
+        throw new System.NotImplementedException();
     }
 }
