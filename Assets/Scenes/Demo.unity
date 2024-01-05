@@ -3080,6 +3080,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 739887016}
+  - component: {fileID: 739887022}
   - component: {fileID: 739887015}
   - component: {fileID: 739887017}
   - component: {fileID: 739887018}
@@ -3087,7 +3088,6 @@ GameObject:
   - component: {fileID: 739887019}
   - component: {fileID: 739887021}
   - component: {fileID: 739887020}
-  - component: {fileID: 739887022}
   - component: {fileID: 739887024}
   m_Layer: 7
   m_Name: Boar
@@ -3157,7 +3157,7 @@ Transform:
   m_GameObject: {fileID: 739887014}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.52, y: -1.69, z: 0}
+  m_LocalPosition: {x: -12.62, y: -1.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3339,9 +3339,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa6e84304e7ecd43be57431b48aa2e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   physcisCheck: {fileID: 0}
-  normalSpeed: 100
-  currentSpeed: 100
+  normalSpeed: 200
+  currentSpeed: 0
   ChaseSpeed: 0
   faceDir: {x: 0, y: 0, z: 0}
   attacker: {fileID: 0}
@@ -3350,7 +3351,7 @@ MonoBehaviour:
   isDead: 0
   wait: 0
   waitTime: 2
-  waitCount: 2
+  waitCount: 0
 --- !u!50 &739887023
 Rigidbody2D:
   serializedVersion: 4
@@ -3393,7 +3394,7 @@ MonoBehaviour:
   isGround: 0
   touchRightWall: 0
   touchLeftWall: 0
-  bottomOffset: {x: -1, y: 0}
+  bottomOffset: {x: -1.18, y: 0}
   rightOffset: {x: 1.18, y: 0.63}
   leftOffset: {x: -1.25, y: 0.63}
   radius: 0.08
@@ -4113,7 +4114,7 @@ Transform:
   m_GameObject: {fileID: 1325809571}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.22, y: -1.71, z: 0}
+  m_LocalPosition: {x: -20.29, y: 4.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

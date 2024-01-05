@@ -18,15 +18,23 @@ public class PhyscisCheck : MonoBehaviour
     public float radius;
 
     public LayerMask layerMask;
+
+    private void Awake()
+    {
+        
+    }
+
     private void Update()
     {
+        
         Check();
     }                                                
 
     public void Check()
     {
-        //地面检测
-        isGround = Physics2D.OverlapCircle((Vector2)transform.position+bottomOffset,radius,layerMask);
+        //bottomOffset.x = bottomOffset.x * transform.localScale.x;
+        //检测地面
+        isGround = Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(bottomOffset.x , bottomOffset.y), radius,layerMask);
         //墙壁检测
         touchRightWall=Physics2D.OverlapCircle((Vector2)transform.position+rightOffset,radius,layerMask);
         touchLeftWall=Physics2D.OverlapCircle((Vector2)transform.position+leftOffset,radius,layerMask);

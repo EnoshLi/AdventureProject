@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    protected Animator animator;
+    [HideInInspector]public Animator animator;
 
     protected Rigidbody2D rigidbody2D;
 
-    public PhyscisCheck physcisCheck;
+    [HideInInspector]public PhyscisCheck physcisCheck;
 
     [Header("基本参数")]
     
@@ -24,41 +24,55 @@ public class Enemy : MonoBehaviour
     //攻击者
     public Transform attacker;
     public float hurtForce;
+    [Header("状态机")] 
+    private BaseState currentState;
+    //巡逻
+    protected BaseState patrolState;
+    //追击
+    protected BaseState chaseState;
     [Header("基本状态")] 
     public bool isHurt;
-
     public bool isDead;
+    
     [Header("计时器")]
     public bool wait;
     public float waitTime;
     public float waitCount;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         currentSpeed = normalSpeed;
         physcisCheck = GetComponent<PhyscisCheck>();
     }
+
+    private void OnEnable()
+    {
+        currentState = patrolState;
+        currentState.OnEnter(this);
+    }
+
     // Update is called once per frame
     void Update()
     {
         faceDir = new Vector3(-transform.localScale.x, 0, 0);
-        if ((physcisCheck.touchLeftWall && faceDir.x < 0 )|| (physcisCheck.touchRightWall && faceDir.x > 0))
-        {
-            wait = true;
-            animator.SetBool("Walk" ,false);
-        }
+        currentState.LogicUpdate();
         TimeCount();
     }
 
     private void FixedUpdate()
     {
-        if (!isHurt && !isDead)
+        if (!isHurt && !isDead && !wait)
         {
             Move();
         }
         
+    }
+
+    private void OnDisable()
+    {
+        currentState.OnExit();
     }
 
     #region 移动
@@ -78,12 +92,20 @@ public class Enemy : MonoBehaviour
             waitCount -= Time.deltaTime;
             if (waitCount<=0)
             {
-                wait = false;
                 waitCount = waitTime;
                 transform.localScale = new Vector3(faceDir.x, 1, 1);
+                StartCoroutine(FaceCheck());
             }
         }
     }
+
+    IEnumerator FaceCheck()
+    {
+        physcisCheck.bottomOffset.x *=  -transform.localScale.x;
+        yield return new WaitForSeconds(0.2f);
+        wait = false;
+    }
+
     #endregion
 
     #region 受到伤害
@@ -103,7 +125,7 @@ public class Enemy : MonoBehaviour
 
         isHurt = true;
         animator.SetTrigger("Hurt");
-        Vector2 dir = new Vector2(transform.position.x-attacker.position.x,0);
+        Vector2 dir = new Vector2(transform.position.x-attackTransform.position.x,0);
         StartCoroutine(OnHurt(dir));
     }
     //协程

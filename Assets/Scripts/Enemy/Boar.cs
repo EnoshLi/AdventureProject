@@ -5,10 +5,9 @@ using UnityEngine.PlayerLoop;
 
 public class Boar : Enemy
 {
-    
-    public override void Move()
+    protected override void Awake()
     {
-        base.Move();
-        animator.SetBool("Walk",true);
+        base.Awake();
+        patrolState = new BoarPatrolState();
     }
 }
