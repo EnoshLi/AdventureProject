@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour
     protected BaseState patrolState;
     //追击
     protected BaseState chaseState;
+    //技能
+    protected BaseState skillState;
+    //当前
     private BaseState currentState;
     [Header("基本状态")] 
     public bool isHurt;
@@ -78,7 +81,7 @@ public class Enemy : MonoBehaviour
     {
         if (!isHurt && !isDead && !wait)
         {
-            Move();
+                Move();
         }
         
     }
@@ -92,11 +95,10 @@ public class Enemy : MonoBehaviour
 
     public virtual void Move()
     {
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("PreMove")) ;
+        if ( !animator.GetCurrentAnimatorStateInfo(0).IsName("PreMove") && !animator.GetCurrentAnimatorStateInfo(0).IsName("SnailRecover")) ;
         {
-            rigidbody2D.velocity = new Vector2(faceDir.x*currentSpeed * Time.deltaTime, rigidbody2D.velocity.y);
+            rigidbody2D.velocity = new Vector2(faceDir.x * currentSpeed * Time.deltaTime, rigidbody2D.velocity.y);
         }
-        
     }
 
     #endregion
@@ -113,6 +115,7 @@ public class Enemy : MonoBehaviour
         {
             NPCState.Chase => chaseState,
             NPCState.Patrol => patrolState,
+            NPCState.Skill =>skillState,
                 _ => null
         };
         currentState.OnExit();

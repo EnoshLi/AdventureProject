@@ -34,6 +34,6 @@ public class SnailPatrolState : BaseState
 
     public override void OnExit()
     {
-        throw new System.NotImplementedException();
+        currentEnemy.animator.SetBool("Walk" ,false);
     }
 }
