@@ -7,6 +7,7 @@ public class BeePatrolState : BaseState
     private Vector3 target;
     private Vector3 moveDir;
     
+    
     public override void OnEnter(Enemy enemy)
     {
         currentEnemy = enemy;
@@ -51,6 +52,6 @@ public class BeePatrolState : BaseState
 
     public override void OnExit()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Exit");
     }
 }

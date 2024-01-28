@@ -12,9 +12,9 @@ public class Attack : MonoBehaviour
     /// 攻击范围和频率是用于蜜蜂上的
     /// </summary>
     //攻击范围
-    public int attackRange;
+    public float attackRange;
     //攻击频率
-    public int attackRate;
+    public float attackRate;
 
     private void OnTriggerStay2D(Collider2D other)
     {

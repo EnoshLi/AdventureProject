@@ -11,6 +11,7 @@ public class Bee : Enemy
     {
         base.Awake();
         patrolState = new BeePatrolState();
+        chaseState = new BeeChaseState();
     }
 
     public override bool FoundPalyer()
@@ -25,14 +26,14 @@ public class Bee : Enemy
 
     public override void Move()
     {
-       //patrolState.LogicUpdate();
+        
     }
 
     protected override void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(spawnPoint,checkDistance);
-        Gizmos.color=Color.green;
-        Gizmos.DrawWireSphere(spawnPoint,patrolRadius);
+        Gizmos.DrawWireSphere(transform.position, checkDistance);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, patrolRadius);
     }
 
     public override Vector3 GetNewPoint()
