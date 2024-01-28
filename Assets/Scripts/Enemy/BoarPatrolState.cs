@@ -14,7 +14,7 @@ public class BoarPatrolState : BaseState
     {
         if (currentEnemy.FoundPalyer())
         {
-            currentEnemy.SwaitchState(NPCState.Chase);
+            currentEnemy.SwitchState(NPCState.Chase);
         }
         if (!currentEnemy.physcisCheck.isGround || (currentEnemy.physcisCheck.touchLeftWall && currentEnemy.faceDir.x < 0 )|| (currentEnemy.physcisCheck.touchRightWall && currentEnemy.faceDir.x > 0))
         {

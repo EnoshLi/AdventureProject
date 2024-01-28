@@ -14,7 +14,7 @@ public class SnailPatrolState : BaseState
     {
         if (currentEnemy.FoundPalyer())
         {
-            currentEnemy.SwaitchState(NPCState.Skill);
+            currentEnemy.SwitchState(NPCState.Skill);
         }
         if (!currentEnemy.physcisCheck.isGround || (currentEnemy.physcisCheck.touchLeftWall && currentEnemy.faceDir.x < 0 )|| (currentEnemy.physcisCheck.touchRightWall && currentEnemy.faceDir.x > 0))
         {

@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 {
     [HideInInspector]public Animator animator;
 
-    protected Rigidbody2D rigidbody2D;
+    public Rigidbody2D rigidbody2D;
 
     [HideInInspector]public PhyscisCheck physcisCheck;
 
@@ -19,12 +19,14 @@ public class Enemy : MonoBehaviour
     //冲锋速度
     public float ChaseSpeed;
     //当前速度
-    [HideInInspector]public float currentSpeed;
+    public float currentSpeed;
     //面朝方向
     public Vector3 faceDir;
     //攻击者
     public Transform attacker;
     public float hurtForce;
+    //出生点
+    public Vector3 spawnPoint;
     [Header("状态机")] 
     //巡逻
     protected BaseState patrolState;
@@ -59,7 +61,7 @@ public class Enemy : MonoBehaviour
         physcisCheck = GetComponent<PhyscisCheck>();
         physcisCheck.isGround = true;
         waitCount = waitTime;
-
+        spawnPoint = transform.position;
     }
 
     private void OnEnable()
@@ -79,6 +81,7 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        currentState.PhysicsUpdate();
         if (!isHurt && !isDead && !wait)
         {
                 Move();
@@ -92,7 +95,6 @@ public class Enemy : MonoBehaviour
     }
 
     #region 移动
-
     public virtual void Move()
     {
         if ( !animator.GetCurrentAnimatorStateInfo(0).IsName("PreMove") && !animator.GetCurrentAnimatorStateInfo(0).IsName("SnailRecover")) ;
@@ -103,13 +105,13 @@ public class Enemy : MonoBehaviour
 
     #endregion
     //检测敌人
-    public bool FoundPalyer()
+    public virtual bool FoundPalyer()
     {
         return Physics2D.BoxCast(transform.position + (Vector3)centerOffset, checkSize, 0, faceDir, checkDistance,
             attackLayerMask);
     }
     //状态切换
-    public void SwaitchState(NPCState state)
+    public void SwitchState(NPCState state)
     {
         var newState = state switch
         {
@@ -203,7 +205,16 @@ public class Enemy : MonoBehaviour
 
     #endregion
 
-    private void OnDrawGizmosSelected()
+    /// <summary>
+    ///获取蜜蜂的出生位置
+    /// </summary>
+    /// <returns></returns>
+    public virtual Vector3 GetNewPoint()
+    {
+        return transform.position;
+    }
+
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position + (Vector3)centerOffset+new Vector3(checkDistance*-transform.localScale.x,0,0),0.2f);
     }

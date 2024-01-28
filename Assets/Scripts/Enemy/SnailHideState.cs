@@ -20,7 +20,7 @@ public class SnailHideState : BaseState
     {
         if (currentEnemy.lostCount<=0)
         {
-            currentEnemy.SwaitchState(NPCState.Patrol);
+            currentEnemy.SwitchState(NPCState.Patrol);
         }
         currentEnemy.GetComponent<Character>().invulnerableCount = currentEnemy.lostCount;
     }

@@ -15,7 +15,7 @@ public class BoarChaseState : BaseState
     {
         if (currentEnemy.lostCount<=0)
         {
-            currentEnemy.SwaitchState(NPCState.Patrol);
+            currentEnemy.SwitchState(NPCState.Patrol);
         }
         if (!currentEnemy.physcisCheck.isGround || (currentEnemy.physcisCheck.touchLeftWall && currentEnemy.faceDir.x < 0 )|| (currentEnemy.physcisCheck.touchRightWall && currentEnemy.faceDir.x > 0))
         {
