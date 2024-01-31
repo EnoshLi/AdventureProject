@@ -24,7 +24,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5526859474985592055
 Transform:
   m_ObjectHideFlags: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  rigidbody2D: {fileID: 0}
   physcisCheck: {fileID: 0}
   normalSpeed: 200
   ChaseSpeed: 400
@@ -60,6 +61,7 @@ MonoBehaviour:
   faceDir: {x: 0, y: 0, z: 0}
   attacker: {fileID: 0}
   hurtForce: 3
+  spawnPoint: {x: 0, y: 0, z: 0}
   isHurt: 0
   isDead: 0
   wait: 0
