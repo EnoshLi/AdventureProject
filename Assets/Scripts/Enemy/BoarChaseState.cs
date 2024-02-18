@@ -25,7 +25,7 @@ public class BoarChaseState : BaseState
 
     public override void PhysicsUpdate()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void OnExit()

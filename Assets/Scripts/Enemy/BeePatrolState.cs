@@ -5,6 +5,7 @@ using UnityEngine;
 public class BeePatrolState : BaseState
 {
     private Vector3 target;
+    //移动方向
     private Vector3 moveDir;
     
     

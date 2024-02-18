@@ -7,8 +7,8 @@ using UnityEngine.Events;
 public class Character : MonoBehaviour
 {
     [Header("基本参数")]
-    public int maxHealth;
-    public int currentHealth;
+    public float maxHealth;
+    public float currentHealth;
     [Header("人物受伤状态")] 
     public float invulnerableDuration;
 
@@ -18,6 +18,7 @@ public class Character : MonoBehaviour
 
     public bool isDead;
     [Header("事件")] 
+    public UnityEvent<Character> OnHealthChange;
     public UnityEvent<Transform> OnTakeDamage;
 
     public UnityEvent OnDie;
@@ -25,6 +26,7 @@ public class Character : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        OnHealthChange?.Invoke(this);
     }
 
     private void Update()
@@ -59,6 +61,7 @@ public class Character : MonoBehaviour
             //执行死亡
             OnDie?.Invoke();
         }
+        OnHealthChange?.Invoke(this);
     }
 
     public void TriggerInvulnerable()
