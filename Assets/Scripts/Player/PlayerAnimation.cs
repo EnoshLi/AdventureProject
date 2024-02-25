@@ -33,6 +33,7 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("Crouch",playerController.isCrouch);
         animator.SetBool("isDead",playerController.isDead);
         animator.SetBool("isAttack",playerController.isAttack);
+        animator.SetBool("onWall",physcisCheck.onWall);
     }
 
     public void hurtTriggle()

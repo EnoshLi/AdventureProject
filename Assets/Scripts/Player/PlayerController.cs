@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("基本参数")]
     public float speed;
     public float jumpForce;
+    public float wallJumpFarce;
     public float hurtForce;
     private Vector2 offset;
     private Vector2 size;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public bool isHurt;
     public bool isDead;
     public bool isAttack;
+    public bool wallJump;
     [Header("物理材质")] 
     public PhysicsMaterial2D normal;
 
@@ -80,7 +82,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         //人物移动
-        if (!isCrouch)
+        if (!isCrouch&&!wallJump)
         {
             rb.velocity = new Vector2(playerDirction.x * speed * Time.deltaTime, rb.velocity.y);
         }
@@ -120,6 +122,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(transform.up*jumpForce,ForceMode2D.Impulse);
         }
+        else if (physcisCheck.onWall)
+        {
+            rb.AddForce(new Vector2(-playerDirction.x,2f)*wallJumpFarce,ForceMode2D.Impulse);
+            wallJump = true;
+        }
         
     }
 
@@ -146,7 +153,21 @@ public class PlayerController : MonoBehaviour
         gameObject.layer = isDead ? LayerMask.NameToLayer("Enemy") : LayerMask.NameToLayer("Player");
         //改变人物摩擦因素
         capsule2D.sharedMaterial= physcisCheck.isGround ? normal : wall;
-        
+        //改变人物下滑的速度
+        if (physcisCheck.onWall)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 2);
+        }
+        else
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y  );
+        }
+
+        if (wallJump && rb.velocity.y<0)
+        {
+            wallJump = false; 
+        }
+
     }
 
     #endregion
