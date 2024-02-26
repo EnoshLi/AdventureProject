@@ -294,6 +294,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 645d8cd6cd2189444aefeacca4255018, type: 2}
+        m_TargetAssemblyTypeName: VoidEventSO, Assembly-CSharp
+        m_MethodName: EventRise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDie:
     m_PersistentCalls:
       m_Calls:
@@ -321,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc0224972a88b14eb87a59a3dad5f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 50
+  attackDamage: 5
   attackRange: 0
   attackRate: 0
 --- !u!114 &3317143730777500806
