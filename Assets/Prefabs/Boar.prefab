@@ -187,7 +187,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 10
   m_ForceSendLayers:
     serializedVersion: 2
@@ -269,10 +269,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   currentHealth: 0
+  maxPower: 0
+  currentPower: 0
+  powerRecoverSpeed: 0
   invulnerableDuration: 0.5
   invulnerableCount: 0
   invulnerable: 0
   isDead: 0
+  OnHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls:
@@ -315,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc0224972a88b14eb87a59a3dad5f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 5
+  attackDamage: 50
   attackRange: 0
   attackRate: 0
 --- !u!114 &3317143730777500806
@@ -330,9 +336,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b671848509d3c43bd5ec83bc29f83f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
   isGround: 1
   touchRightWall: 0
   touchLeftWall: 0
+  onWall: 0
   bottomOffset: {x: -1.18, y: 0}
   rightOffset: {x: 1.18, y: 0.63}
   leftOffset: {x: -1.25, y: 0.63}

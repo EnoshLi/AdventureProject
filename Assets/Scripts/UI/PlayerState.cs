@@ -9,6 +9,8 @@ public class PlayerState : MonoBehaviour
     public Image healthImage;
     public Image healthDelayIamge;
     public Image PowerImage;
+    public bool powerRecovering;
+    public Character currentCharacter;
 
     private void Update()
     {
@@ -16,6 +18,19 @@ public class PlayerState : MonoBehaviour
         {
             healthDelayIamge.fillAmount -= Time.deltaTime;
         }
+
+        if (powerRecovering)
+        {
+            float percentage = currentCharacter.currentPower / currentCharacter.maxPower;
+            PowerImage.fillAmount = percentage;
+            if (percentage>=1)
+            {
+                powerRecovering = false;
+                return;
+            }
+        }
+
+        
     }
 
     /// <summary>
@@ -25,5 +40,11 @@ public class PlayerState : MonoBehaviour
     public void OnHealthChange(float persentage)
     {
         healthImage.fillAmount = persentage;
+    }
+
+    public void OnPowerChange(Character character)
+    {
+        powerRecovering = true;
+        currentCharacter = character;
     }
 }

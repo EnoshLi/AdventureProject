@@ -14,11 +14,15 @@ public class PlayerController : MonoBehaviour
     public PhyscisCheck physcisCheck;
     private CapsuleCollider2D capsule2D;
     private PlayerAnimation playerAnimation;
+    private Character character;
     [Header("基本参数")]
     public float speed;
     public float jumpForce;
     public float wallJumpFarce;
     public float hurtForce;
+    public float slideDistance;
+    public float slideSpeed;
+    public float powerCost;
     private Vector2 offset;
     private Vector2 size;
     [Header("基本状态")]
@@ -27,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public bool isDead;
     public bool isAttack;
     public bool wallJump;
+    public bool isSlide;
     [Header("物理材质")] 
     public PhysicsMaterial2D normal;
 
@@ -39,6 +44,7 @@ public class PlayerController : MonoBehaviour
         physcisCheck = GetComponent<PhyscisCheck>();
         capsule2D = GetComponent<CapsuleCollider2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        character = GetComponent<Character>();
         offset=capsule2D.offset;
         size = capsule2D.size;
     }
@@ -50,11 +56,16 @@ public class PlayerController : MonoBehaviour
         playerInputControl.Player.Jump.started += Jump;
         //人物攻击功能
         playerInputControl.Player.Attack.started += Attack;
+        //滑铲
+        playerInputControl.Player.Slide.started += Slide;
         //人物某些状态改变
         CheckState();
         
+        
     }
+
     
+
     private void FixedUpdate()
     {
         if (!isHurt)
@@ -121,6 +132,8 @@ public class PlayerController : MonoBehaviour
         if (physcisCheck.isGround)
         {
             rb.AddForce(transform.up*jumpForce,ForceMode2D.Impulse);
+            isSlide = false;
+            StopAllCoroutines();
         }
         else if (physcisCheck.onWall)
         {
@@ -132,6 +145,42 @@ public class PlayerController : MonoBehaviour
 
     #endregion
     
+    //滑铲
+    private void Slide(InputAction.CallbackContext obj)
+    {
+
+        if (!isSlide && physcisCheck.isGround && character.currentPower>=powerCost)
+        {
+            isSlide = true;
+            var targetPos = new Vector3(transform.position.x + slideDistance * transform.localScale.x,
+                transform.position.y);
+            gameObject.layer = LayerMask.NameToLayer("Enemy");
+            StartCoroutine(TriggleSlide(targetPos));
+            character.OnSlide(powerCost);
+        }
+    }
+
+    private IEnumerator TriggleSlide(Vector3 target)
+    {
+        do
+        {
+            yield return null;
+            if (!physcisCheck.isGround)
+            { 
+                break;
+            }
+
+            if ((physcisCheck.touchLeftWall && transform.localScale.x<0f)|| (physcisCheck.touchRightWall&&transform.localScale.x>0f))
+            {
+                isSlide = false;
+                break;
+            }
+            rb.MovePosition(new Vector2(transform.position.x+slideSpeed*transform.localScale.x,transform.position.y));
+        } while (Mathf.Abs(target.x-transform.position.x)>=0.1f);
+        isSlide = false;
+        gameObject.layer = LayerMask.NameToLayer("Player");
+    }
+
     #region UnityEvent
     //受到伤害
     public void GetHurt(Transform attacker)
@@ -150,7 +199,11 @@ public class PlayerController : MonoBehaviour
     //防止死亡后敌人仍然再攻击
     public void CheckState()
     {
-        gameObject.layer = isDead ? LayerMask.NameToLayer("Enemy") : LayerMask.NameToLayer("Player");
+        
+        if (isDead)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Enemy");
+        }
         //改变人物摩擦因素
         capsule2D.sharedMaterial= physcisCheck.isGround ? normal : wall;
         //改变人物下滑的速度

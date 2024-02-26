@@ -6,9 +6,13 @@ using UnityEngine.Events;
 
 public class Character : MonoBehaviour
 {
+    private PlayerController playerController;
     [Header("基本参数")]
     public float maxHealth;
     public float currentHealth;
+    public float maxPower;
+    public float currentPower;
+    public float powerRecoverSpeed;
     [Header("人物受伤状态")] 
     public float invulnerableDuration;
 
@@ -23,9 +27,11 @@ public class Character : MonoBehaviour
 
     public UnityEvent OnDie;
 
-    private void Start()
+    private void Awake()
     {
+        playerController = GetComponent<PlayerController>();
         currentHealth = maxHealth;
+        currentPower = maxPower;
         OnHealthChange?.Invoke(this);
     }
 
@@ -38,6 +44,11 @@ public class Character : MonoBehaviour
             {
                 invulnerable = false;
             }
+        }
+
+        if (currentPower<maxPower && !playerController.isSlide)
+        {
+            currentPower += Time.deltaTime * powerRecoverSpeed;
         }
     }
 
@@ -71,6 +82,12 @@ public class Character : MonoBehaviour
             invulnerable = true;
             invulnerableCount = invulnerableDuration;
         }
+    }
+
+    public void OnSlide(float cost)
+    {
+        currentPower -= cost;
+        OnHealthChange?.Invoke(this);
     }
 
 }

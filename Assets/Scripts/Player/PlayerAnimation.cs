@@ -34,6 +34,7 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("isDead",playerController.isDead);
         animator.SetBool("isAttack",playerController.isAttack);
         animator.SetBool("onWall",physcisCheck.onWall);
+        animator.SetBool("isSlide",playerController.isSlide);
     }
 
     public void hurtTriggle()
