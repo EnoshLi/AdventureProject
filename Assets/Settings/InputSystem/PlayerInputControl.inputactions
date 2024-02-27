@@ -305,22 +305,22 @@
                 },
                 {
                     "name": "",
-                    "id": "6300fb0e-762a-4579-ba09-e13790c88884",
-                    "path": "<Mouse>/leftButton",
+                    "id": "9ef9db17-bca6-423c-9ed9-3729f10e71cc",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Gamepad",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "9ef9db17-bca6-423c-9ed9-3729f10e71cc",
-                    "path": "<Gamepad>/buttonWest",
+                    "id": "a9a04ed1-5a34-47f9-80b3-b3ae4ad3914d",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
