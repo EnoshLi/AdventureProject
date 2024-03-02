@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Character : MonoBehaviour
 {
-    private PlayerController playerController;
+    public PlayerController playerController;
     [Header("基本参数")]
     public float maxHealth;
     public float currentHealth;

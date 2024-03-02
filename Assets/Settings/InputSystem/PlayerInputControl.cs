@@ -349,17 +349,6 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""94be103f-1f58-461c-968e-d4e575cbd60d"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Slide"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""82219537-0e8c-416c-bfe0-d015ae258817"",
                     ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",

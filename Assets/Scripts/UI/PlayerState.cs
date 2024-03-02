@@ -29,8 +29,6 @@ public class PlayerState : MonoBehaviour
                 return;
             }
         }
-
-        
     }
 
     /// <summary>
