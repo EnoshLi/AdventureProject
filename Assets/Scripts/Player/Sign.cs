@@ -10,6 +10,7 @@ public class Sign : MonoBehaviour
 {
     public Animator anim;
     public PlayerInputControl playerInputControl;
+    private IIteractable targetItem;
     public Transform playerTransform;
     public GameObject signSpirte;
     public bool canPress;
@@ -24,9 +25,17 @@ public class Sign : MonoBehaviour
     private void OnEnable()
     {
         InputSystem.onActionChange += OnActionChange;
+        playerInputControl.Player.Confirm.started += OnConfirm;
     }
 
-    
+    private void OnConfirm(InputAction.CallbackContext obj)
+    {
+        if (canPress)
+        {
+            targetItem.TriggleAction();
+        }
+    }
+
 
     private void Update()
     {
@@ -34,6 +43,11 @@ public class Sign : MonoBehaviour
         signSpirte.transform.localScale = playerTransform.localScale;
         
     }
+    /// <summary>
+    /// 键盘，手柄输入方式的动画切换
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="actionChange"></param>
     private void OnActionChange(object obj, InputActionChange actionChange)
     {
         if (actionChange == InputActionChange.ActionStarted)
@@ -59,11 +73,13 @@ public class Sign : MonoBehaviour
         if (other.CompareTag("Interactable"))
         {
             canPress = true;
+            targetItem = other.GetComponent<IIteractable>();
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         canPress = false;
+        
     }
 }

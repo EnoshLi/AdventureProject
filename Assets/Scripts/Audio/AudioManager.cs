@@ -29,7 +29,7 @@ public class AudioManager : MonoBehaviour
     }
     private void OnBGMEvent(AudioClip audioClip)
     {
-        FXSource.clip = audioClip;
-        FXSource.Play();
+        BGMSource.clip = audioClip;
+        BGMSource.Play();
     }
 }
