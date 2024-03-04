@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(menuName = "Event/SceneLoderEventSO")]
+[CreateAssetMenu(menuName = "Events/SceneLoderEventSO")]
 public class SceneLoderEventSO : ScriptableObject
 {
     public UnityAction<GameSceneSO, Vector3, bool> LoadRequestEvent;

@@ -6,23 +6,31 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
+    [Header("事件的监听")] 
+    public VoidEventSO afterLoadedEventSO;
     private CinemachineConfiner2D confiner2D;
     public CinemachineImpulseSource impulseSource;
     public VoidEventSO cameraShakeEvent;
     private void Awake()
     {
         confiner2D = GetComponent<CinemachineConfiner2D>();
-        
     }
 
     private void OnEnable()
     {
         cameraShakeEvent.OnEventRised += OnCameraShakeEvent;
+        afterLoadedEventSO.OnEventRised += OnAfterLoadedEvent;
     }
 
     private void OnDisable()
     {
         cameraShakeEvent.OnEventRised -= OnCameraShakeEvent;
+        afterLoadedEventSO.OnEventRised -= OnAfterLoadedEvent;
+    }
+
+    private void OnAfterLoadedEvent()
+    {
+        GetNewCameraBounds();
     }
 
     private void OnCameraShakeEvent()
@@ -33,10 +41,10 @@ public class CameraControl : MonoBehaviour
     /// <summary>
     /// TODO
     /// </summary>
-    private void Start()
+    /*private void Start()
     {
         GetNewCameraBounds();
-    }
+    }*/
 
     public void GetNewCameraBounds()
     {
