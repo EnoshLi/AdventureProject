@@ -33,6 +33,11 @@ public class Character : MonoBehaviour
         
     }
 
+    private void Start()
+    {
+        currentHealth = maxHealth;
+    }
+
     private void OnEnable()
     {
         newGameEvent.OnEventRised += NewGame;
