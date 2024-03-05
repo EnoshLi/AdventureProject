@@ -7,6 +7,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("监听")] 
+    public SceneLoderEventSO loadEvent;
+    public VoidEventSO afterLoadSceneEvent;
+    
     [Header("基本组件")]
     public PlayerInputControl playerInputControl;
     public Vector2 playerDirction;
@@ -15,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D capsule2D;
     private PlayerAnimation playerAnimation;
     private Character character;
+    
     [Header("基本参数")]
     public float speed;
     public float jumpForce;
@@ -25,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public float powerCost;
     private Vector2 offset;
     private Vector2 size;
+    
     [Header("基本状态")]
     public bool isCrouch;
     public bool isHurt;
@@ -59,13 +65,9 @@ public class PlayerController : MonoBehaviour
         //滑铲
         playerInputControl.Player.Slide.started += Slide;
         //人物某些状态改变
-        CheckState();
-        
-        
+        //CheckState();
     }
-
     
-
     private void FixedUpdate()
     {
         if (!isHurt)
@@ -78,10 +80,14 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         playerInputControl.Enable();
+        loadEvent.LoadRequestEvent += OnLoadEvent;
+        afterLoadSceneEvent.OnEventRised += OnAfterLoadSceneEvent;
     }
-
+    
     private void OnDisable()
     {
+        loadEvent.LoadRequestEvent -= OnLoadEvent;
+        afterLoadSceneEvent.OnEventRised -= OnAfterLoadSceneEvent;
         playerInputControl.Disable();
     }
     /// <summary>
@@ -89,6 +95,16 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     /// <param name="obj"></param>
     
+    //在Menu界面人物不允许移动
+    private void OnLoadEvent(GameSceneSO arg0, Vector3 arg1, bool arg2)
+    {
+        playerInputControl.Player.Disable();
+    }
+    //恢复人物移动
+    private void OnAfterLoadSceneEvent()
+    {
+        playerInputControl.Player.Enable(); 
+    }
     #region 移动
     private void Move()
     {
@@ -231,7 +247,6 @@ public class PlayerController : MonoBehaviour
     {
         playerAnimation.AttackTriggle();
         isAttack = true;
-        
     }
 
     #endregion

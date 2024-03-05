@@ -290,13 +290,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLoading: 0
-  firstPosition: {x: -18.28, y: -1.56, z: 0}
+  firstPosition: {x: -5, y: -3.2, z: 0}
   playerTrans: {fileID: 1325809575}
   afterSceneLoadedEventSO: {fileID: 11400000, guid: 75f2c631ebe811b4aa33d0b73b95e86e, type: 2}
   fadeEvent: {fileID: 11400000, guid: 561a4849e77a4bf4ea0b1ce013a270f9, type: 2}
   currentLoadedScene: {fileID: 0}
   loderEventSo: {fileID: 11400000, guid: 7e418970fb44593478711fe4a156cf5d, type: 2}
-  firstLoderScene: {fileID: 11400000, guid: 67a6de4729954944f852517edd3812a1, type: 2}
+  firstLoderScene: {fileID: 11400000, guid: ec39b533b1081aa4783d0b469c45675b, type: 2}
   waitDuration: 1
 --- !u!1 &474980933
 GameObject:
@@ -556,7 +556,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.100002, y: -18.177439, z: -10}
+  m_LocalPosition: {x: -5.000001, y: -1.7774389, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1333,7 +1333,7 @@ Transform:
   m_GameObject: {fileID: 824801497}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.100002, y: -18.177439, z: -10}
+  m_LocalPosition: {x: -5.000001, y: -1.7774389, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1620,6 +1620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: {fileID: 948440018}
   CharacterEventSo: {fileID: 11400000, guid: 400dd107177a13444916740d7e5bd3da, type: 2}
+  loderEvent: {fileID: 11400000, guid: 7e418970fb44593478711fe4a156cf5d, type: 2}
 --- !u!1 &1186333256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,8 +1938,8 @@ Transform:
   m_GameObject: {fileID: 1325809571}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.1, y: -19.6, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalPosition: {x: -5, y: -3.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 760039462}
@@ -1957,6 +1958,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0f5a7d0ac520048aeb61d51a246576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadEvent: {fileID: 11400000, guid: 7e418970fb44593478711fe4a156cf5d, type: 2}
+  afterLoadSceneEvent: {fileID: 11400000, guid: 75f2c631ebe811b4aa33d0b73b95e86e, type: 2}
   playerDirction: {x: 0, y: 0}
   rb: {fileID: 0}
   physcisCheck: {fileID: 0}

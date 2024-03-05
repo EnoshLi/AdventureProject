@@ -12,7 +12,8 @@ public class SceneLoader : MonoBehaviour
     public bool isLoading;
     public Vector3 firstPosition;
     public Transform playerTrans;
-    [Header("广播")] public VoidEventSO afterSceneLoadedEventSO;
+    [Header("广播")] 
+    public VoidEventSO afterSceneLoadedEventSO;
     [Header("事件监听")] 
     public FadeEventSO fadeEvent;
     public GameSceneSO currentLoadedScene;
@@ -41,7 +42,8 @@ public class SceneLoader : MonoBehaviour
     private void NewGame()
     {
         loactionToLand = firstLoderScene;
-        OnLoadRequestEvent(loactionToLand,firstPosition,true);
+        //OnLoadRequestEvent(loactionToLand,firstPosition,true);
+        loderEventSo.RaiseLoadRequestEvent(loactionToLand,firstPosition,true);
     }
 
     /// <summary>
@@ -110,6 +112,10 @@ public class SceneLoader : MonoBehaviour
 
         isLoading = false;
         //场景加载完成后的事件
-        afterSceneLoadedEventSO.EventRise();
+        if (currentLoadedScene.sceneType==SceneType.Loaction)
+        {
+            afterSceneLoadedEventSO.EventRise();  
+        }
+        //afterSceneLoadedEventSO.EventRise();
     }
 }
