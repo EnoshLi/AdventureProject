@@ -289,15 +289,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd93dcb67c02cf346a331083144fa276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLoading: 0
-  firstPosition: {x: -5, y: -3.2, z: 0}
-  playerTrans: {fileID: 1325809575}
   afterSceneLoadedEventSO: {fileID: 11400000, guid: 75f2c631ebe811b4aa33d0b73b95e86e, type: 2}
+  sceneUnLoadedEvent: {fileID: 11400000, guid: 04690c02adfb58c47b174293ceb4a41f, type: 2}
   fadeEvent: {fileID: 11400000, guid: 561a4849e77a4bf4ea0b1ce013a270f9, type: 2}
+  newGameEvent: {fileID: 11400000, guid: df5ddc8dcd3d9e34c82865ecf7a6cdb9, type: 2}
   currentLoadedScene: {fileID: 0}
   loderEventSo: {fileID: 11400000, guid: 7e418970fb44593478711fe4a156cf5d, type: 2}
-  firstLoderScene: {fileID: 11400000, guid: ec39b533b1081aa4783d0b469c45675b, type: 2}
+  firstLoderScene: {fileID: 11400000, guid: 67a6de4729954944f852517edd3812a1, type: 2}
+  menuScence: {fileID: 11400000, guid: ec39b533b1081aa4783d0b469c45675b, type: 2}
   waitDuration: 1
+  isLoading: 0
+  firstPosition: {x: -19.519, y: -1.691, z: 0}
+  menuPosition: {x: -5, y: -3.2, z: 0}
+  playerTrans: {fileID: 1325809575}
 --- !u!1 &474980933
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,7 +560,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.000001, y: -1.7774389, z: -10}
+  m_LocalPosition: {x: -19.519001, y: -0.26843882, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1333,7 +1337,7 @@ Transform:
   m_GameObject: {fileID: 824801497}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.000001, y: -1.7774389, z: -10}
+  m_LocalPosition: {x: -19.519001, y: -0.26843882, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1496,7 +1500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &948440017
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1620,7 +1624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: {fileID: 948440018}
   CharacterEventSo: {fileID: 11400000, guid: 400dd107177a13444916740d7e5bd3da, type: 2}
-  loderEvent: {fileID: 11400000, guid: 7e418970fb44593478711fe4a156cf5d, type: 2}
+  loderEvent: {fileID: 11400000, guid: 04690c02adfb58c47b174293ceb4a41f, type: 2}
 --- !u!1 &1186333256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,7 +1942,7 @@ Transform:
   m_GameObject: {fileID: 1325809571}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: -3.2, z: 0}
+  m_LocalPosition: {x: -19.519, y: -1.691, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2047,6 +2051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407bb5ea5e3d9a74aaafe22828f9a9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGameEvent: {fileID: 11400000, guid: df5ddc8dcd3d9e34c82865ecf7a6cdb9, type: 2}
   playerController: {fileID: 0}
   maxHealth: 100
   currentHealth: 0

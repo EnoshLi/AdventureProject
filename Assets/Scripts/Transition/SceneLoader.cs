@@ -9,34 +9,51 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public bool isLoading;
-    public Vector3 firstPosition;
-    public Transform playerTrans;
     [Header("广播")] 
     public VoidEventSO afterSceneLoadedEventSO;
+    public SceneLoderEventSO sceneUnLoadedEvent;
+    
     [Header("事件监听")] 
     public FadeEventSO fadeEvent;
-    public GameSceneSO currentLoadedScene;
+    public VoidEventSO newGameEvent;
+    
+    [Header("场景")]
+    [HideInInspector]public GameSceneSO currentLoadedScene;
     public SceneLoderEventSO loderEventSo;
     public GameSceneSO firstLoderScene;
+    public GameSceneSO menuScence;
     private GameSceneSO loactionToLand;
+    
+    [Header("基本变量")]
     private Vector3 posToGo;
     private bool fadeScreen;
     public float waitDuration;
+    public bool isLoading;
+    public Vector3 firstPosition;
+    public Vector3 menuPosition;
+    public Transform playerTrans;
+
+    private void Awake()
+    {
+        
+    }
 
     private void Start()
     {
-        NewGame();
+        //NewGame();
+        loderEventSo.RaiseLoadRequestEvent(menuScence,menuPosition,true);
     }
 
     private void OnEnable()
     {
         loderEventSo.LoadRequestEvent += OnLoadRequestEvent;
+        newGameEvent.OnEventRised += NewGame;
     }
 
     private void OnDisable()
     {
         loderEventSo.LoadRequestEvent -= OnLoadRequestEvent;
+        newGameEvent.OnEventRised -= NewGame;
     }
 
     private void NewGame()
@@ -83,6 +100,8 @@ public class SceneLoader : MonoBehaviour
             fadeEvent.FadeIn(waitDuration);
         }
         yield return new WaitForSeconds(waitDuration);
+        //调整人物UI的显示
+        sceneUnLoadedEvent.LoadRequestEvent(loactionToLand,posToGo,true);
         //卸载当前场景
         yield return currentLoadedScene.assetReference.UnLoadScene();
         //关闭人物

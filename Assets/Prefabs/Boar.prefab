@@ -267,6 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407bb5ea5e3d9a74aaafe22828f9a9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGameEvent: {fileID: 11400000, guid: df5ddc8dcd3d9e34c82865ecf7a6cdb9, type: 2}
+  playerController: {fileID: 0}
   maxHealth: 30
   currentHealth: 0
   maxPower: 0

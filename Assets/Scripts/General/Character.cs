@@ -6,33 +6,41 @@ using UnityEngine.Events;
 
 public class Character : MonoBehaviour
 {
-    public PlayerController playerController;
+    [Header("事件监听")] 
+    public VoidEventSO newGameEvent;
+    [HideInInspector]public PlayerController playerController;
     [Header("基本参数")]
     public float maxHealth;
     public float currentHealth;
     public float maxPower;
     public float currentPower;
     public float powerRecoverSpeed;
+    
     [Header("人物受伤状态")] 
     public float invulnerableDuration;
-
     public float invulnerableCount;
-
     public bool invulnerable;
-
     public bool isDead;
+    
     [Header("事件")] 
     public UnityEvent<Character> OnHealthChange;
     public UnityEvent<Transform> OnTakeDamage;
-
     public UnityEvent OnDie;
 
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
-        currentHealth = maxHealth;
-        currentPower = maxPower;
-        OnHealthChange?.Invoke(this);
+        
+    }
+
+    private void OnEnable()
+    {
+        newGameEvent.OnEventRised += NewGame;
+    }
+
+    private void OnDisable()
+    {
+        newGameEvent.OnEventRised -= NewGame;
     }
 
     private void Update()
@@ -51,7 +59,12 @@ public class Character : MonoBehaviour
             currentPower += Time.deltaTime * powerRecoverSpeed;
         }
     }
-
+    public void NewGame()
+    {
+        currentHealth = maxHealth;
+        currentPower = maxPower;
+        OnHealthChange?.Invoke(this);
+    }
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Water"))
